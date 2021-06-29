@@ -1,0 +1,15 @@
+.t-center {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 2;
+    color: #fff;
+}
+.br-none {
+    border-radius: 0 !important;
+}
+.df-column {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,12 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Grid, Image} from "semantic-ui-react";
+import {Item, List, Segment} from "semantic-ui-react";
+import Loaders from "./Loaders";
+
 
 const Slider = () => {
 
     const [data, setData] = useState([]);
 
 
+
+
     useEffect(() => {
+
         try {
             async function myFetch () {
 
@@ -26,42 +31,44 @@ const Slider = () => {
                 };
                 setData(items)
 
+
             }
 
             setInterval(() => {
                 myFetch()
-            }, 10000)
+            }, 15000)
 
 
         }
         catch (e) {
             console.log(e)
         }
-
-
     }, []);
 
-    console.log(data)
+    const {name, height, mass, hair_color, gender, eye_color, id} = data;
 
     return (
-        <Grid style={{margin:'40px 0'}} divided='vertically'>
-            <Grid.Row columns={2}>
-                <Grid.Column>
-                    <Image  style={{margin:'0 auto'}} src={`https://starwars-visualguide.com/assets/img/characters/${data.id}.jpg`} />
-                </Grid.Column>
-                <Grid.Column>
-                    <Card>
-                        <Card.Content>
-                            <Card.Header>{data.name}</Card.Header>
-                            <Card.Meta>Friends of Elliot</Card.Meta>
-                            <Card.Description>
-                                Steve wants to add you to the group <strong>best friends</strong>
-                            </Card.Description>
-                        </Card.Content>
-                    </Card>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
+                    <Segment style={{margin: '40px 0'}} inverted >
+                        { !id ? <Loaders/> :
+                        <Item.Group style={{padding: '40px 0'}}>
+                            <Item >
+                                <Item.Image size='small' src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+                                <Item.Content className={'c-white'} >
+                                    <Item.Header  as='a'>{name}</Item.Header>
+                                    <hr/>
+                                    <Item.Extra >Additional Details</Item.Extra>
+                                    <List bulleted>
+                                        <List.Item>Height - {height}</List.Item>
+                                        <List.Item>Mass - {mass}</List.Item>
+                                        <List.Item>Eye color - {eye_color}</List.Item>
+                                        <List.Item>Gender - {gender}</List.Item>
+                                        <List.Item>Hair color - {hair_color}</List.Item>
+                                    </List>
+                                </Item.Content>
+                            </Item>
+                        </Item.Group>
+                        }
+                    </Segment>
     );
 };
 

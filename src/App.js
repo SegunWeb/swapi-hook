@@ -15,6 +15,7 @@ function App() {
         <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/planets" component={Planets} />
+            <Route exact path="/planets/:id" component={Planets} />
             <Route exact path="/people" component={People} />
             <Route exact path="/404" component={NoPage} />
 

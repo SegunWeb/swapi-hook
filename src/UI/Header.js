@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Input, Menu} from "semantic-ui-react";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 const Header = () => {
@@ -10,14 +10,6 @@ const Header = () => {
         {name: 'people', to: '/people'}
     ];
 
-    const [activeItem, setActiveItem] = useState('home');
-
-    const handleItemClick = (e, {name}) => {
-        setActiveItem(name)
-    };
-
-
-
     return (
         <header>
             <Menu pointing inverted className={'br-none'}>
@@ -25,10 +17,8 @@ const Header = () => {
                 { menu.map((item, index) => {
                     return (
                         <Menu.Item
-                            as={ Link }
+                            as={ NavLink }
                             name={item.name}
-                            active={activeItem === item.name}
-                            onClick={handleItemClick}
                             key={index}
                             to={item.to}
                         />

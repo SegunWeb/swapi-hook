@@ -2,35 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {Button, Card, Image} from "semantic-ui-react";
 import Loaders from "./Loaders";
 import {Link} from "react-router-dom";
+import apiService from "../api/Service";
 
 const Items = () => {
-
+    const api = new apiService();
     const [arr, setArr] = useState([]);
 
     useEffect(() => {
-
-        try {
-            async function myFetch() {
-                let data = await fetch(`https://swapi.dev/api/planets/`);
-                data = await data.json();
-
-                const items = data.results.slice(0,3);
-
-                setArr(items)
-
-            }
-            myFetch()
-        }
-        catch (e) {
-            console.log(e)
-        }
+        api.getAllPlanets().then(data => {
+            const items = data.slice(0,3);
+            setArr(items)
+        })
     }, []);
 
 
     const itemBox = (
         arr.map((item, index) => {
             return (
-                <Card>
+                <Card key={index}>
                     <Card.Content>
                         <Image
                             floated='right'
@@ -49,7 +38,7 @@ const Items = () => {
                             <Button as={Link} to={'/planets'} basic color='green'>
                                 <strong>all planets</strong>
                             </Button>
-                            <Button as={Link} to={`/planets/${index}`} basic color='blue'>
+                            <Button as={Link} to={`/planets/${index + 1}`} basic color='blue'>
                                 <strong>about planet</strong>
                             </Button>
                         </div>

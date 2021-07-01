@@ -2,27 +2,34 @@ import React, {useEffect, useState} from 'react';
 import {Header, Item, List, Segment} from "semantic-ui-react";
 import Loaders from "../UI/Loaders";
 import {Link} from "react-router-dom";
+import apiService from "../api/Service";
 
 const Planets = () => {
 
+    const api = new apiService();
     const [planets, setPlanets] = useState([]);
 
     useEffect(() => {
-        try {
-           async function myFetch() {
-                let data = await fetch('https://swapi.dev/api/planets/')
-                data = await data.json();
+        // try {
+        //    async function myFetch() {
+        //         let data = await fetch('https://swapi.dev/api/planets/')
+        //         data = await data.json();
+        //
+        //         setPlanets(data.results)
+        //    }
+        //
+        //     myFetch()
+        // }
+        // catch (e) {
+        //     console.log(e)
+        // }
 
-                setPlanets(data.results)
-           }
+        api.getAllPlanets().then(data => setPlanets(data))
 
-            myFetch()
-        }
-        catch (e) {
-            console.log(e)
-        }
     }, []);
 
+
+    console.log(planets);
 
     return (
         <>
@@ -36,12 +43,12 @@ const Planets = () => {
                        const {name, diameter, climate, population} = item;
 
                        return (
-                           <Segment style={{margin: '10px 0'}} inverted >
-                           <Item.Group style={{padding: '40px 0'}}>
+                           <Segment  style={{margin: '10px 0'}} inverted key={i}>
+                           <Item.Group as={Link} to={`/planets/${i + 1}`} style={{padding: '40px 0'}}>
                                <Item >
-                                   <Item.Image size='small' src={`https://starwars-visualguide.com/assets/img/planets/${i}.jpg`} />
+                                   <Item.Image size='small' src={`https://starwars-visualguide.com/assets/img/planets/${i + 1}.jpg`} />
                                    <Item.Content className={'c-white'} >
-                                       <Item.Header  as={Link} to={`/planets/${i}`}>{name}</Item.Header>
+                                       <Item.Header>{name}</Item.Header>
                                        <hr/>
                                        <Item.Extra >Additional Details</Item.Extra>
                                        <List bulleted>

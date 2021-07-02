@@ -54,8 +54,6 @@ const InItem = () => {
               <Button.Content  visible>all planets</Button.Content>
               <Button.Content  hidden>back</Button.Content>
           </Button>
-
-
       </>
   )
 };

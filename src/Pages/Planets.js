@@ -3,11 +3,18 @@ import {Header, Item, List, Segment} from "semantic-ui-react";
 import Loaders from "../UI/Loaders";
 import {Link} from "react-router-dom";
 import apiService from "../api/Service";
+import {useDispatch, useSelector} from "react-redux";
+import {planetSuccess} from "../redux/actions/actionPlanets";
 
 const Planets = () => {
 
+
+
     const api = new apiService();
-    const [planets, setPlanets] = useState([]);
+    // const [planets, setPlanets] = useState([]);
+    const dispatch = useDispatch();
+    const planets = useSelector( state => state.planets.planets)
+
 
     useEffect(() => {
         // try {
@@ -24,12 +31,10 @@ const Planets = () => {
         //     console.log(e)
         // }
 
-        api.getAllPlanets().then(data => setPlanets(data))
+        api.getAllPlanets().then(data => dispatch(planetSuccess(data)))
 
     }, []);
 
-
-    console.log(planets);
 
     return (
         <>
